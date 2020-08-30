@@ -1,32 +1,47 @@
-/* tray_height = 30; */
-tray_height = 4;
+/* tray_height = 15; */
+tray_height = 2;
 tray_length = 145-29;
 tray_depth = 70;
-/* tab_height = 15; */
-tab_height = 10;
+tray_corner_rad = 4;
+tab_height = 15;
 tab_depth = 5;
 feet_height = 5;
 feet_diam = 5;
 
 
+mixer_main_depth=46;
+mixer_back_width=70.5;
+mixer_back_xoffset=6.5;
+mixer_back_tab_yoffset=7;
+
+
 // tray
-cube([tray_length, tray_depth, tray_height]);
+hull() {
+    translate([tray_corner_rad,tray_corner_rad,0]) cylinder(h=tray_height, r=tray_corner_rad, $fn=24);
+    translate([tray_length-tray_corner_rad,tray_corner_rad,0]) cylinder(h=tray_height, r=tray_corner_rad, $fn=24);
+    translate([tray_corner_rad,tray_depth-tray_corner_rad,0]) cylinder(h=tray_height, r=tray_corner_rad, $fn=24);
+    translate([tray_length-tray_corner_rad,tray_depth-tray_corner_rad,0]) cylinder(h=tray_height, r=tray_corner_rad, $fn=24);
+    }
+/* cube([tray_length, tray_depth, tray_height]); */
+
 
 // tabs
-translate([2, 0, -tab_height]) cube([30, tab_depth, tab_height]);
-translate([2, tab_depth+46, -tab_height]) cube([30, tab_depth, tab_height]);
+translate([4, 0, -tab_height]) cube([28, tab_depth, tab_height]);
+translate([4, tab_depth+mixer_main_depth, -tab_height]) cube([28, tab_depth, tab_height]);
 
 translate([tray_length-16, 0, -tab_height]) cube([10, tab_depth, tab_height]);
 
-translate([tray_length-6.5, tab_depth+55, -tab_height]) cube([tab_depth, 10, tab_height]);
+translate([tray_length-mixer_back_xoffset, tab_depth+mixer_main_depth+mixer_back_tab_yoffset, -tab_height]) cube([tab_depth, 10, tab_height]);
 
-translate([tray_length-6.5-71-tab_depth, tab_depth+55, -tab_height]) cube([tab_depth, 10, tab_height]);
+translate([tray_length-mixer_back_xoffset-mixer_back_width-tab_depth, tab_depth+mixer_main_depth+mixer_back_tab_yoffset, -tab_height]) cube([tab_depth, 10, tab_height]);
+
+/* #translate([32, tab_depth+mixer_main_depth, -10]) cube([7,7,10]); */
 
 // feet
-translate([8, tab_depth+46-5, -feet_height]) cylinder(d=feet_diam, h=feet_height, $fn=32);
+translate([8, tab_depth+mixer_main_depth-5, -feet_height]) cylinder(d=feet_diam, h=feet_height, $fn=32);
 translate([8, tab_depth+5, -feet_height]) cylinder(d=feet_diam, h=feet_height, $fn=32);
 
 translate([tray_length-10, tab_depth+5, -feet_height]) cylinder(d=feet_diam, h=feet_height, $fn=32);
-translate([tray_length-10, tab_depth+46-5, -feet_height]) cylinder(d=feet_diam, h=feet_height, $fn=32);
+translate([tray_length-10, tab_depth+mixer_main_depth-5, -feet_height]) cylinder(d=feet_diam, h=feet_height, $fn=32);
 
-translate([tray_length-6.5-71/2, tab_depth+57, -feet_height]) cylinder(d=feet_diam, h=feet_height, $fn=32);
+translate([tray_length-mixer_back_xoffset-mixer_back_width/2, tab_depth+57, -feet_height]) cylinder(d=feet_diam, h=feet_height, $fn=32);
